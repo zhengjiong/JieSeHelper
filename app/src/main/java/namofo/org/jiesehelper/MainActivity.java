@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * @author zhengjiong
+ * @date 2015年06月12日11:17:05
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
