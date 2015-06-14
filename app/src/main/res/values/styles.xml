@@ -5,7 +5,11 @@
         <item name="colorPrimary">#03a9f4</item>
         <item name="colorPrimaryDark">#026592</item>
 
+        <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/white</item>
+
+        <!--可以設置Drawer左上角3條線的顏色-->
+        <item name="colorControlNormal">@android:color/white</item>
     </style>
 
     <style name="AppTheme" parent="BaseAppTheme">
