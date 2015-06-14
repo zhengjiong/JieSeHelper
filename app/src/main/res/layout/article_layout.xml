@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:tabIndicatorColor="@android:color/white"
-            app:tabContentStart="60dp"
+            app:tabContentStart="61dp"
             app:tabMode="scrollable"
             />
         <!--app:tabIndicatorColor="@android:color/white"

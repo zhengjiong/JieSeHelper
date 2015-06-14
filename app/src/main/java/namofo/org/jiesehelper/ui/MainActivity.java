@@ -13,6 +13,9 @@ import android.view.View;
 
 import com.google.common.collect.Lists;
 
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 import java.util.List;
 
 import namofo.org.jiesehelper.R;
@@ -20,29 +23,27 @@ import namofo.org.jiesehelper.fragment.ArticleFragment;
 
 /**
  * 應用程序首頁
+ *
  * @author zhengjiong
  * @date 2015年06月12日11:17:05
  */
+@EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
+
+    @ViewById(R.id.drawerlayout)
     public DrawerLayout mDrawerLayout;
-    private NavigationView mNavigationView;
+
+    @ViewById(R.id.navigationview)
+    public NavigationView mNavigationView;
     private ActionBarDrawerToggle mDrawerToggle;
 
     private ArticleFragment mArticleFragment;
     private List<Fragment> mFragments = Lists.newArrayList();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public void initData() {
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
-        mNavigationView = (NavigationView) findViewById(R.id.navigationview);
-
-        if (savedInstanceState == null) {
-            mArticleFragment = ArticleFragment.newInstance();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, mArticleFragment, "0").commit();
-        }
+        mArticleFragment = ArticleFragment.newInstance();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, mArticleFragment, "0").commit();
     }
 
     /*private void initToolbar() {
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
     public void initDrawerLayout(Toolbar toolbar) {
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close){
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
     }
 
     @Override
@@ -94,8 +96,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * onPostCreate是activity創建完成以後執行的
-     *
+     * <p/>
      * 設置這個才可以顯示出左上角3條橫線的圖標
+     *
      * @param savedInstanceState
      */
     @Override
