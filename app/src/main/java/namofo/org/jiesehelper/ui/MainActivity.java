@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.google.common.collect.Lists;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private ArticleFragment mArticleFragment;
     private List<Fragment> mFragments = Lists.newArrayList();
 
+    @AfterViews
     public void initData() {
 
         mArticleFragment = ArticleFragment.newInstance();
