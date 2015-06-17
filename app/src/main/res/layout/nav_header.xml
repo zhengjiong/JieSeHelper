@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-
         android:src="@mipmap/fo_9"
         android:fitsSystemWindows="true"/>
     <TextView
@@ -33,7 +32,7 @@
         android:layout_above="@id/txt_username"
         android:layout_marginBottom="10dp"
         android:src="@mipmap/ic_launcher"
-        app:border_width="2dp"
-        app:border_color="#FF000000"
         />
+    <!--app:border_width="2dp"
+    app:border_color="?attr/colorPrimary"-->
 </RelativeLayout>
