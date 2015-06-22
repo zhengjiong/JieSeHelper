@@ -10,12 +10,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import namofo.org.jiesehelper.constants.AppDatabase;
+
 /**
  * @author zhengjiong 2014-5-20 上午6:45:46
  */
 public class DBUtil {
 
-	public static String dbName = "jiexieying.db";
+	public static String COPY_DB_NAME = "jiesehelper.db";
 
 	/**
 	 * 判斷數據庫是否存在
@@ -28,7 +30,7 @@ public class DBUtil {
 
 		SQLiteDatabase db = null;
 		try {
-			String dbFileName = dbPath + dbName;
+			String dbFileName = dbPath + COPY_DB_NAME;
             Log.i("zj", "dbFileName = " + dbFileName);
             db = SQLiteDatabase.openDatabase(dbFileName, null, SQLiteDatabase.OPEN_READONLY);
 		} catch (SQLiteException e) {
@@ -39,25 +41,36 @@ public class DBUtil {
 		}
 		return db != null ? true : false;
 	}
+
 	/**
-	 *
+	 * 檢查數據庫文件是否存在
+	 * @param context
+	 * @return
+	 */
+	public static boolean checkDataBase2(Context context) {
+		File dbFile = context.getDatabasePath(AppDatabase.NAME+".db");
+		return dbFile.exists();
+	}
+
+	/**
+	 * 複製數據庫文件
 	 * @param context
 	 * @throws IOException
 	 */
 	public static void copyDataBase(Context context) throws IOException {
-		if (!checkDataBase(context)) {
-			String packageName = context.getPackageName();
-			String dbPath = "/data/data/" + packageName + "/databases/";
+		if (!checkDataBase2(context)) {
+			File dbFile = context.getDatabasePath(AppDatabase.NAME+".db");
+			if (!dbFile.getParentFile().exists()){
+				//創建databases目錄
+				dbFile.getParentFile().mkdir();
+			}
 
-			File dir = new File(dbPath);
-			if (!dir.exists())
-				dir.mkdir();
+			//待複製的數據庫文件
+			String copyDatabaseFilenames = dbFile.getPath();
 
-			String databaseFilenames = dbPath + dbName;
+			FileOutputStream os = new FileOutputStream(copyDatabaseFilenames);// 得到数据库文件的写入流
+			InputStream is = context.getAssets().open(COPY_DB_NAME);
 
-			FileOutputStream os = new FileOutputStream(databaseFilenames);// 得到数据库文件的写入流
-			InputStream is = context.getAssets().open(dbName);
-			
 			byte[] buffer = new byte[8192];
 			int count = 0;
 			while ((count = is.read(buffer)) > 0) {

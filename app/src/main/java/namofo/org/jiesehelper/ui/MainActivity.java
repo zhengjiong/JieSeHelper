@@ -3,6 +3,7 @@ package namofo.org.jiesehelper.ui;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,9 @@ import org.androidannotations.annotations.ViewById;
 import java.util.List;
 
 import namofo.org.jiesehelper.R;
-import namofo.org.jiesehelper.fragment.ArticleFragment;
+import namofo.org.jiesehelper.fragment.ArticleFragment_;
+import namofo.org.jiesehelper.fragment.BaseFragment;
+import namofo.org.jiesehelper.fragment.TopUsersFragment_;
 
 /**
  * 應用程序首頁
@@ -30,22 +33,49 @@ import namofo.org.jiesehelper.fragment.ArticleFragment;
  */
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
-
+    private int mCurrentIndex;
     @ViewById(R.id.drawerlayout)
     public DrawerLayout mDrawerLayout;
 
     @ViewById(R.id.navigationview)
     public NavigationView mNavigationView;
-    private ActionBarDrawerToggle mDrawerToggle;
 
-    private ArticleFragment mArticleFragment;
-    private List<Fragment> mFragments = Lists.newArrayList();
+    public ActionBarDrawerToggle mDrawerToggle;
+
+    public List<BaseFragment> mFragments = Lists.newArrayList();
 
     @AfterViews
     public void initData() {
+        mFragments.add(ArticleFragment_.builder().build());
+        mFragments.add(TopUsersFragment_.builder().build());
 
-        mArticleFragment = ArticleFragment.newInstance();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, mArticleFragment, "0").commit();
+        initListener();
+        selectItem();
+    }
+
+    public void initListener(){
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                switch (menuItem.getItemId()) {
+                    case R.id.article:
+                        mCurrentIndex = 0;
+                        break;
+                    case R.id.top:
+                        mCurrentIndex = 1;
+                        break;
+                    default:
+
+                        return true;
+                }
+                menuItem.setChecked(true);
+                mDrawerLayout.closeDrawers();
+                selectItem();
+                //mDrawerToggle.syncState();
+                return true;
+            }
+        });
     }
 
     /*private void initToolbar() {
@@ -71,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
+        //mDrawerToggle.syncState();
     }
 
     @Override
@@ -106,6 +136,51 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
+        /*
+         * 屏蔽掉syncState,讓左上角三條線不轉動,不然會有bug
+         * 重新設置NavaigationIcon:
+         * mToolbar.setNavigationIcon(R.mipmap.ic_menu_white);
+         */
+        //mDrawerToggle.syncState();
     }
+
+    public void selectItem(){
+        /*getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_frame, mFragments.get(mCurrentIndex), String.valueOf(mCurrentIndex))
+                .commit();*/
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+
+        Fragment fragment = mFragments.get(mCurrentIndex);
+
+        if (fragments != null) {
+            for (int i = 0; i < fragments.size(); i++) {
+                transaction.hide(fragments.get(i));
+            }
+            if (fragments.contains(fragment)) {
+                transaction.show(fragment);
+            }else {
+                transaction.add(R.id.content_frame, fragment, String.valueOf(mCurrentIndex));
+            }
+        }else {
+            transaction.add(R.id.content_frame, fragment, String.valueOf(mCurrentIndex));
+        }
+        transaction.commit();
+
+        /*Fragment addFragment = getSupportFragmentManager().findFragmentByTag(String.valueOf(position));
+        //currentFragment.is
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        for (int i = 0; i < fragments.size(); i++) {
+            transaction.hide(fragments.get(i));
+        }
+        Fragment showFragment = getSupportFragmentManager().findFragmentByTag(String.valueOf(mCurrentIndex));
+        if (showFragment != null) {
+            transaction.show(showFragment)
+                    .commit();*/
+    }
+
 }

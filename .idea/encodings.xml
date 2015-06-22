@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/app/src/main/assets/jiesehelper.db" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/namofo/org/jiesehelper/bean/Article.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/namofo/org/jiesehelper/bean/ArticleCategory.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/namofo/org/jiesehelper/bean/ArticleFileType.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/namofo/org/jiesehelper/bean/ColorCard.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/namofo/org/jiesehelper/bean/PostModel.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/namofo/org/jiesehelper/bean/User.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/namofo/org/jiesehelper/constants/Constants.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/namofo/org/jiesehelper/receiver" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/namofo/org/jiesehelper/service" charset="GBK" />
