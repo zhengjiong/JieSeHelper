@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.common.collect.Lists;
-import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.builder.Condition;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
@@ -21,8 +20,6 @@ import java.util.List;
 
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.bean.Article;
-import namofo.org.jiesehelper.bean.ArticleFileType;
-import namofo.org.jiesehelper.bean.ArticleFileType$Table;
 
 /**
  * create by zhengjiong
