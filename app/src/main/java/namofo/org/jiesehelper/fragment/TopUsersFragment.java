@@ -11,7 +11,7 @@ import namofo.org.jiesehelper.R;
  * Time: 15:01
  */
 @EFragment(R.layout.top_users_fragment_layout)
-public class TopUsersFragment extends BaseFragment{
+public class TopUsersFragment extends NavigationBaseFragment {
 
     @AfterViews
     public void afterViews() {
