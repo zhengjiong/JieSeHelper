@@ -1,30 +1,21 @@
 package namofo.org.jiesehelper.bean;
 
 
-import java.io.Serializable;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
-public class ArticleFileType implements Serializable {
+import namofo.org.jiesehelper.constants.AppDatabase;
 
-    private Long id;
-    private String file_name;
+@Table(databaseName = AppDatabase.NAME, tableName = "article_file_type")
+public class ArticleFileType extends BaseModel {
 
-    public ArticleFileType() {
-    }
+    @PrimaryKey
+    @Column(name = "id")
+    int id;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFile_name() {
-        return file_name;
-    }
-
-    public void setFile_name(String file_name) {
-        this.file_name = file_name;
-    }
+    @Column(name = "file_name")
+    String file_name;
 
 }

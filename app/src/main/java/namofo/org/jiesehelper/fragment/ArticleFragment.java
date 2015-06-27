@@ -23,7 +23,7 @@ import namofo.org.jiesehelper.bean.ArticleCategory;
  * Time: 09:58
  */
 @EFragment(R.layout.article_layout)
-public class ArticleFragment extends BaseFragment{
+public class ArticleFragment extends NavigationBaseFragment {
 
     @ViewById(R.id.tablayout)
     public TabLayout mTabLayout;
@@ -53,26 +53,16 @@ public class ArticleFragment extends BaseFragment{
     }
 
     private void initTab() {
-        mFragments.add(ArticleListFragment.newInstance());
-        mFragments.add(ArticleListFragment.newInstance());
-        mFragments.add(ArticleListFragment.newInstance());
-        mFragments.add(ArticleListFragment.newInstance());
-        mFragments.add(ArticleListFragment.newInstance());
-        mFragments.add(ArticleListFragment.newInstance());
+        for (int i = 0; i < mTabTitles.size(); i++) {
+            //增加fragment
+            ArticleListFragment fragment = ArticleListFragment_.builder().arg("category", mTabTitles.get(i).getId()).build();
+            mFragments.add(fragment);
 
-        TabLayout.Tab tab1 = mTabLayout.newTab().setText(mTabTitles.get(0).getName());
-        TabLayout.Tab tab2 = mTabLayout.newTab().setText(mTabTitles.get(1).getName());
-        TabLayout.Tab tab3 = mTabLayout.newTab().setText(mTabTitles.get(2).getName());
-        TabLayout.Tab tab4 = mTabLayout.newTab().setText(mTabTitles.get(3).getName());
-        TabLayout.Tab tab5 = mTabLayout.newTab().setText(mTabTitles.get(4).getName());
-        TabLayout.Tab tab6 = mTabLayout.newTab().setText(mTabTitles.get(5).getName());
-
-        mTabLayout.addTab(tab1);
-        mTabLayout.addTab(tab2);
-        mTabLayout.addTab(tab3);
-        mTabLayout.addTab(tab4);
-        mTabLayout.addTab(tab5);
-        mTabLayout.addTab(tab6);
+            //增加tab
+            TabLayout.Tab tab = mTabLayout.newTab();
+            tab.setText(mTabTitles.get(i).getName());
+            mTabLayout.addTab(tab);
+        }
 
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(mPagerAdapter);

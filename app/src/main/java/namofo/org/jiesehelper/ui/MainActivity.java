@@ -22,7 +22,7 @@ import java.util.List;
 
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.fragment.ArticleFragment_;
-import namofo.org.jiesehelper.fragment.BaseFragment;
+import namofo.org.jiesehelper.fragment.NavigationBaseFragment;
 import namofo.org.jiesehelper.fragment.TopUsersFragment_;
 
 /**
@@ -34,6 +34,7 @@ import namofo.org.jiesehelper.fragment.TopUsersFragment_;
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
     private int mCurrentIndex;
+
     @ViewById(R.id.drawerlayout)
     public DrawerLayout mDrawerLayout;
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     public ActionBarDrawerToggle mDrawerToggle;
 
-    public List<BaseFragment> mFragments = Lists.newArrayList();
+    public List<NavigationBaseFragment> mFragments = Lists.newArrayList();
 
     @AfterViews
     public void initData() {
@@ -128,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * onPostCreate是activity創建完成以後執行的
-     * <p/>
-     * 設置這個才可以顯示出左上角3條橫線的圖標
+     *
+     * 設置mDrawerToggle.syncState()才可以顯示出左上角3條橫線的圖標
      *
      * @param savedInstanceState
      */
