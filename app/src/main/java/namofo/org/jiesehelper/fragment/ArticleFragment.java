@@ -4,13 +4,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
-import com.google.common.collect.Lists;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import namofo.org.jiesehelper.R;
@@ -18,6 +18,7 @@ import namofo.org.jiesehelper.adapter.ArticlePagerAdapter;
 import namofo.org.jiesehelper.bean.ArticleCategory;
 
 /**
+ * 文章
  * create by zhengjiong
  * Date: 2015-06-14
  * Time: 09:58
@@ -32,7 +33,7 @@ public class ArticleFragment extends NavigationBaseFragment {
     public ViewPager mViewPager;
 
     private ArticlePagerAdapter mPagerAdapter;
-    private List<Fragment> mFragments = Lists.newArrayList();
+    private List<Fragment> mFragments = new ArrayList<>();
     private List<ArticleCategory> mTabTitles;
 
     @AfterViews

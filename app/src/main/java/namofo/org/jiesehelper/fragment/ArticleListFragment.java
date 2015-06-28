@@ -1,5 +1,6 @@
 package namofo.org.jiesehelper.fragment;
 
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.common.collect.Lists;
 import com.raizlabs.android.dbflow.sql.builder.Condition;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
@@ -16,41 +16,51 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.bean.Article;
+import namofo.org.jiesehelper.ui.ArticleDetailForDbActivity_;
 
 /**
+ * 文章列表
  * create by zhengjiong
  * Date: 2015-06-13
  * Time: 22:47
  */
 @EFragment(R.layout.article_list_fragment_layout)
 public class ArticleListFragment extends Fragment{
-    @ViewById(R.id.recyclerview)
-    public RecyclerView mRecyclerView;
 
     //分类id
     private int mCategoryId;
     //文章
-    private List<Article> mItems = Lists.newArrayList();
+    private List<Article> mItems = new ArrayList<>();
+
+    @ViewById(R.id.recyclerview)
+    public RecyclerView mRecyclerView;
 
     @AfterViews
     public void init(){
         mCategoryId = getArguments().getInt("category", 0);
-        Select select = new Select("title","file_type");
-        mItems = select.from(Article.class)
-        .where(Condition.column("category").eq(mCategoryId))
-        .queryList();
-
-        select.toString();
+        mItems = new Select("id", "title", "file_type")
+                .from(Article.class)
+                .where(Condition.column("category").eq(mCategoryId))
+                .queryList();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(new MyRecyclerAdapter());
+    }
+
+    class OnClickListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+
+        }
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
@@ -64,7 +74,7 @@ public class ArticleListFragment extends Fragment{
         }
 
         public void bindData(int position){
-            mTxtTitle.setText(mItems.get(position).title);
+            mTxtTitle.setText(mItems.get(position).getTitle() + "," + mItems.get(position).getArticleFileType().getFile_name());
         }
     }
 
@@ -77,8 +87,28 @@ public class ArticleListFragment extends Fragment{
         }
 
         @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
+        public void onBindViewHolder(final MyViewHolder holder, final int position) {
             holder.bindData(position);
+            holder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Article article = mItems.get(position);
+                    Snackbar.make(holder.mView, article.getTitle(), Snackbar.LENGTH_SHORT).show();
+                    switch (article.getArticleFileType().getFile_name()) {
+                        case "db":
+                           // Intent intent = new Intent(getActivity(), ArticleDetailForDbActivity_.class);
+                            //intent.putExtra("id", article.getId());
+                            //intent.putExtra("title", article.getTitle());
+                            //startActivity(intent);
+                            ArticleDetailForDbActivity_
+                                    .intent(getActivity())
+                                    .mId(article.getId())
+                                    .mTitle(article.getTitle())
+                                    .start();
+                            break;
+                    }
+                }
+            });
         }
 
         @Override

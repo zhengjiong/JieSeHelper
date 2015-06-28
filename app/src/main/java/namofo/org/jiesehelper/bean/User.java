@@ -1,6 +1,5 @@
 package namofo.org.jiesehelper.bean;
 
-import com.google.gson.Gson;
 
 /**
  * create by zhengjiong
@@ -204,7 +203,7 @@ public class User {
         this.userinfo = userinfo;
     }
 
-    public static User json2Obj(String json) {
+    /*public static User json2Obj(String json) {
         return new Gson().fromJson(json, User.class);
-    }
+    }*/
 }

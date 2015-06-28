@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:fitsSystemWindows="true"
+        >
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="?colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:expandedTitleMarginBottom="35dp"
+            android:fitsSystemWindows="true"
+            >
+            <ImageView
+                android:id="@+id/img_header"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/fo_2"
+                app:layout_collapseMode="parallax"
+                android:fitsSystemWindows="true"/>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="pin" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:gravity="left|top"
+            android:lineSpacingExtra="10dp"
+            android:scrollHorizontally="false"
+            android:singleLine="false"
+            android:textColor="#3e3e3e"
+            android:textSize="20sp"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            />
+    </android.support.v4.widget.NestedScrollView>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@mipmap/ic_discuss"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|right"
+        app:backgroundTint="#cddc39"
+        app:rippleColor="#7B8522"
+        app:elevation="5dp"
+        app:fabSize="normal"
+        />
+    <!--
+    <item name="android:background">@drawable/fab_background</item>
+    <item name="backgroundTint">?attr/colorAccent</item>
+    <item name="fabSize">normal</item>
+    <item name="elevation">@dimen/fab_elevation</item>
+    <item name="pressedTranslationZ">@dimen/fab_translation_z_pressed</item>
+    <item name="rippleColor">?attr/colorControlHighlight</item>
+    <item name="borderWidth">@dimen/fab_border_width</item>
+
+    <attr name="android:background" />
+        <attr name="backgroundTint" />
+        <attr name="backgroundTintMode" />
+        <attr format="color" name="rippleColor" />
+        <attr name="fabSize">
+            <enum name="normal" value="0" />
+            <enum name="mini" value="1" />
+        </attr>
+        <attr name="elevation" />
+        <attr format="dimension" name="pressedTranslationZ" />
+        <attr format="dimension" name="borderWidth" />
+    -->
+</android.support.design.widget.CoordinatorLayout>

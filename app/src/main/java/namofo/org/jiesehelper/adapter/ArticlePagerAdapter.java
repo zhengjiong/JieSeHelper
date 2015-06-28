@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import namofo.org.jiesehelper.bean.ArticleCategory;
@@ -16,8 +16,8 @@ import namofo.org.jiesehelper.bean.ArticleCategory;
  * Time: 22:57
  */
 public class ArticlePagerAdapter extends FragmentPagerAdapter {
-    private List<ArticleCategory> mTitles = Lists.newArrayList();
-    private List<Fragment> mFragments = Lists.newArrayList();
+    private List<ArticleCategory> mTitles = new ArrayList<>();
+    private List<Fragment> mFragments = new ArrayList<>();
 
     public ArticlePagerAdapter(FragmentManager fm, List<ArticleCategory> titles, List<Fragment> fragments) {
         super(fm);

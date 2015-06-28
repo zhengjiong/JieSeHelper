@@ -12,12 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.common.collect.Lists;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import namofo.org.jiesehelper.R;
@@ -29,7 +29,6 @@ import namofo.org.jiesehelper.fragment.TopUsersFragment_;
  * 應用程序首頁
  *
  * @author zhengjiong
- * @date 2015年06月12日11:17:05
  */
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     public ActionBarDrawerToggle mDrawerToggle;
 
-    public List<NavigationBaseFragment> mFragments = Lists.newArrayList();
+    public List<NavigationBaseFragment> mFragments = new ArrayList<>();
 
     @AfterViews
     public void initData() {
@@ -78,16 +77,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*private void initToolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("首页");
-        setSupportActionBar(mToolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-    }*/
 
     public void initDrawerLayout(Toolbar toolbar) {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close) {
@@ -146,11 +135,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectItem(){
-        /*getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.content_frame, mFragments.get(mCurrentIndex), String.valueOf(mCurrentIndex))
-                .commit();*/
-
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
