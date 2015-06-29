@@ -36,8 +36,10 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
+                android:layout_marginTop="@dimen/toolbar_margin_top"
                 android:fitsSystemWindows="true"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin"
+                />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
@@ -49,21 +51,39 @@
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
-
-        <TextView
-            android:id="@+id/content"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="none"
-            android:gravity="left|top"
-            android:lineSpacingExtra="10dp"
-            android:scrollHorizontally="false"
-            android:singleLine="false"
-            android:textColor="#3e3e3e"
-            android:textSize="20sp"
-            android:paddingLeft="10dp"
-            android:paddingRight="5dp"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="10dp"
+                android:textColor="@color/article_txt"
+                android:textSize="20sp"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="350dp"/>
+            <!--<TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="none"
+                android:gravity="left|top"
+                android:lineSpacingExtra="10dp"
+                android:scrollHorizontally="false"
+                android:singleLine="false"
+                android:textColor="#3e3e3e"
+                android:textSize="20sp"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                />-->
+        </LinearLayout>
+
     </android.support.v4.widget.NestedScrollView>
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
