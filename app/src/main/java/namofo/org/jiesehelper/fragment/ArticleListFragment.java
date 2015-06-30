@@ -106,6 +106,18 @@ public class ArticleListFragment extends Fragment{
                                     .mTitle(article.getTitle())
                                     .start();
                             break;
+                        case "txt":
+
+                            break;
+                        case "html":
+
+                            break;
+                        case "doc":
+
+                            break;
+                        case "pdf":
+
+                            break;
                     }
                 }
             });
