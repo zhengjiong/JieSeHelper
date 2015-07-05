@@ -70,7 +70,7 @@ public class ArticleDetailForDbActivity extends AppCompatActivity{
     @AfterViews
     public void afterViews(){
         Log.i("zj", "afterViews");
-        mTxtContent.setText(mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent());
+        mTxtContent.setText(mArticle.getContent());
         initToolbar();
 
         mCollapsingToolbar.setExpandedTitleTextAppearance(R.style.CollapsingToolbarTextAppearance);

@@ -1,6 +1,5 @@
 package namofo.org.jiesehelper.fragment;
 
-import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,7 +22,7 @@ import java.util.List;
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.bean.Article;
 import namofo.org.jiesehelper.ui.ArticleDetailForDbActivity_;
-import namofo.org.jiesehelper.ui.PDFViewActivity;
+import namofo.org.jiesehelper.ui.PDFViewActivity_;
 
 /**
  * 文章列表
@@ -110,10 +109,6 @@ public class ArticleListFragment extends Fragment{
                     Snackbar.make(holder.mView, article.getTitle(), Snackbar.LENGTH_SHORT).show();
                     switch (article.getArticleFileType().getFile_name()) {
                         case "db":
-                           // Intent intent = new Intent(getActivity(), ArticleDetailForDbActivity_.class);
-                            //intent.putExtra("id", article.getId());
-                            //intent.putExtra("title", article.getTitle());
-                            //startActivity(intent);
                             ArticleDetailForDbActivity_
                                     .intent(getActivity())
                                     .mId(article.getId())
@@ -130,15 +125,15 @@ public class ArticleListFragment extends Fragment{
 
                             break;
                         case "pdf":
-                            /*PDFViewActivity_
+                            PDFViewActivity_
                                     .intent(getActivity())
                                     .mId(article.getId())
                                     .mTitle(article.getTitle())
-                                    .start();*/
-                            Intent intent = new Intent(getActivity(), PDFViewActivity.class);
+                                    .start();
+                            /*Intent intent = new Intent(getActivity(), PDFViewActivity.class);
                             intent.putExtra("id", article.getId());
                             intent.putExtra("title", article.getTitle());
-                            startActivity(intent);
+                            startActivity(intent);*/
                             break;
                     }
                 }

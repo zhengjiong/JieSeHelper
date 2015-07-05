@@ -15,7 +15,9 @@
     <style name="AppTheme" parent="BaseAppTheme">
         <!-- Customize your theme here. -->
     </style>
-
+    <style name="MainTheme" parent="BaseAppTheme">
+        <!-- Customize your theme here. -->
+    </style>
 
     <style name="CollapsingToolbarTextAppearance">
         <item name="android:textSize">22sp</item>
