@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="namofo.org.jiesehelper" >
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".app.AppContext"
         android:allowBackup="true"
@@ -18,6 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.ArticleDetailForDbActivity_"/>
+        <activity android:name=".ui.PDFViewActivity"/>
+        <activity android:name=".ui.ArticleDetailForTxtActivity_"/>
     </application>
 
 </manifest>

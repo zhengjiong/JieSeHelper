@@ -1,5 +1,6 @@
 package namofo.org.jiesehelper.fragment;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import java.util.List;
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.bean.Article;
 import namofo.org.jiesehelper.ui.ArticleDetailForDbActivity_;
+import namofo.org.jiesehelper.ui.PDFViewActivity;
 
 /**
  * 文章列表
@@ -53,14 +55,26 @@ public class ArticleListFragment extends Fragment{
 
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(new MyRecyclerAdapter());
-    }
 
-    class OnClickListener implements View.OnClickListener{
 
-        @Override
-        public void onClick(View v) {
+        /*Request request = new Request.Builder()
+                .url("http://jiese.ptxin.com/web.do?key=getAppNews&type=new&page=3")
+                .build();
 
-        }
+        OkHttpUtils.enqueue(request, new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                Log.i("zj", "onFailure");
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                if (response.isSuccessful()) {
+
+                    Log.i("zj", "response.body().string()=" + response.body().string());
+                }
+            }
+        });*/
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
@@ -116,7 +130,15 @@ public class ArticleListFragment extends Fragment{
 
                             break;
                         case "pdf":
-
+                            /*PDFViewActivity_
+                                    .intent(getActivity())
+                                    .mId(article.getId())
+                                    .mTitle(article.getTitle())
+                                    .start();*/
+                            Intent intent = new Intent(getActivity(), PDFViewActivity.class);
+                            intent.putExtra("id", article.getId());
+                            intent.putExtra("title", article.getTitle());
+                            startActivity(intent);
                             break;
                     }
                 }

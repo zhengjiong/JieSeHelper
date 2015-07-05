@@ -4,6 +4,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
+import com.raizlabs.android.dbflow.sql.builder.Condition;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import org.androidannotations.annotations.AfterViews;
@@ -46,7 +47,7 @@ public class ArticleFragment extends NavigationBaseFragment {
     private void initViewPager() {
         mTabTitles = new Select()
                 .from(ArticleCategory.class)
-                .where()
+                .where(Condition.column("show").eq(1))
                 .orderBy(true, "sort")//按sort升序查詢
                 .queryList();
         mPagerAdapter = new ArticlePagerAdapter(getChildFragmentManager(), mTabTitles, mFragments);
