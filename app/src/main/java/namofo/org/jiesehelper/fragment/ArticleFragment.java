@@ -57,7 +57,13 @@ public class ArticleFragment extends NavigationBaseFragment {
     private void initTab() {
         for (int i = 0; i < mTabTitles.size(); i++) {
             //增加fragment
-            ArticleListFragment fragment = ArticleListFragment_.builder().arg("category", mTabTitles.get(i).getId()).build();
+            Fragment fragment;
+            if (i == 0) {
+                fragment = NetArticleListFragment_.builder().build();
+            } else {
+                fragment = ArticleListFragment_.builder().arg("category", mTabTitles.get(i).getId()).build();
+
+            }
             mFragments.add(fragment);
 
             //增加tab

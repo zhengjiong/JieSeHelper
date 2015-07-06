@@ -16,7 +16,7 @@
     app:contentPaddingBottom="5dp"
 >
     <TextView
-        android:id="@+id/txt_item"
+        android:id="@+id/txt_title"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center_vertical"

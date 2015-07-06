@@ -93,4 +93,5 @@ dependencies {
     compile 'com.raizlabs.android:DBFlow:2.1.0'
     /*------------------------------DBFlow end-------------------------------*/
     compile project(':libs:android-pdfview')
+    compile 'com.google.code.gson:gson:2.3.1'
 }

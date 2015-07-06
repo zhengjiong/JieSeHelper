@@ -44,7 +44,7 @@ public class ArticleListFragment extends Fragment{
     @AfterViews
     public void init(){
         mCategoryId = getArguments().getInt("category", 0);
-        mItems = new Select("id", "title", "file_type")
+        mItems = new Select("id", "subject", "file_type")
                 .from(Article.class)
                 .where(Condition.column("category").eq(mCategoryId))
                 .queryList();
@@ -83,11 +83,11 @@ public class ArticleListFragment extends Fragment{
         public MyViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            mTxtTitle = (TextView) mView.findViewById(R.id.txt_item);
+            mTxtTitle = (TextView) mView.findViewById(R.id.txt_title);
         }
 
         public void bindData(int position){
-            mTxtTitle.setText(mItems.get(position).getTitle() + "," + mItems.get(position).getArticleFileType().getFile_name());
+            mTxtTitle.setText(mItems.get(position).getSubject() + "," + mItems.get(position).getArticleFileType().getFile_name());
         }
     }
 
@@ -106,13 +106,13 @@ public class ArticleListFragment extends Fragment{
                 @Override
                 public void onClick(View v) {
                     Article article = mItems.get(position);
-                    Snackbar.make(holder.mView, article.getTitle(), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(holder.mView, article.getSubject(), Snackbar.LENGTH_SHORT).show();
                     switch (article.getArticleFileType().getFile_name()) {
                         case "db":
                             ArticleDetailForDbActivity_
                                     .intent(getActivity())
                                     .mId(article.getId())
-                                    .mTitle(article.getTitle())
+                                    .mTitle(article.getSubject())
                                     .start();
                             break;
                         case "txt":
@@ -128,12 +128,15 @@ public class ArticleListFragment extends Fragment{
                             PDFViewActivity_
                                     .intent(getActivity())
                                     .mId(article.getId())
-                                    .mTitle(article.getTitle())
+                                    .mTitle(article.getSubject())
                                     .start();
                             /*Intent intent = new Intent(getActivity(), PDFViewActivity.class);
                             intent.putExtra("id", article.getId());
                             intent.putExtra("title", article.getTitle());
                             startActivity(intent);*/
+                            break;
+                        case "net":
+
                             break;
                     }
                 }

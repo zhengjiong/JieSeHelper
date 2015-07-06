@@ -22,6 +22,7 @@
         <activity android:name=".ui.ArticleDetailForDbActivity_"/>
         <activity android:name=".ui.PDFViewActivity_"/>
         <activity android:name=".ui.ArticleDetailForTxtActivity_"/>
+        <activity android:name=".ui.ArticleDetailForNetActivity_"/>
     </application>
 
 </manifest>

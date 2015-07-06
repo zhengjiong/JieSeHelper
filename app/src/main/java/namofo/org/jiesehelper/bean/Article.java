@@ -1,6 +1,10 @@
 package namofo.org.jiesehelper.bean;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.reflect.TypeToken;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.ForeignKeyReference;
@@ -8,17 +12,25 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
+import java.io.Serializable;
+import java.util.List;
+
 import namofo.org.jiesehelper.constants.AppDatabase;
 
 @Table(databaseName = AppDatabase.NAME, tableName = "article")
-public class Article extends BaseModel {
+public class Article extends BaseModel implements Serializable{
 
     @Column
     @PrimaryKey
     int id;
 
-    @Column(name = "title", defaultValue = "")
-    String title;
+    @Expose
+    @Column(name = "nid")
+    int nid;
+
+    @Expose
+    @Column(name = "subject", defaultValue = "")
+    String subject;
 
     @Column(name = "content")
     String content;
@@ -38,6 +50,22 @@ public class Article extends BaseModel {
     @Column(name = "end_page")
     int end_page;
 
+    @Expose
+    @Column(name = "img_url")
+    String imgUrl;
+
+    @Expose
+    @Column(name = "detail_url")
+    String detailUrl;
+
+    @Expose
+    @Column(name = "readtimes")
+    int readtimes;
+
+    @Expose
+    @Column(name = "cdate")
+    String cdate;
+
     @Column
     @ForeignKey(
         references = {@ForeignKeyReference(columnName = "file_type",
@@ -54,12 +82,20 @@ public class Article extends BaseModel {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public int getNid() {
+        return nid;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setNid(int nid) {
+        this.nid = nid;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public String getContent() {
@@ -110,11 +146,48 @@ public class Article extends BaseModel {
         this.end_page = end_page;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getDetailUrl() {
+        return detailUrl;
+    }
+
+    public void setDetailUrl(String detailUrl) {
+        this.detailUrl = detailUrl;
+    }
+
+    public int getReadtimes() {
+        return readtimes;
+    }
+
+    public void setReadtimes(int readtimes) {
+        this.readtimes = readtimes;
+    }
+
+    public String getCdate() {
+        return cdate;
+    }
+
+    public void setCdate(String cdate) {
+        this.cdate = cdate;
+    }
+
     public ArticleFileType getArticleFileType() {
         return articleFileType;
     }
 
     public void setArticleFileType(ArticleFileType articleFileType) {
         this.articleFileType = articleFileType;
+    }
+
+    public static List<Article> json2List(String json) {
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        return gson.fromJson(json, new TypeToken<List<Article>>(){}.getType());
     }
 }
