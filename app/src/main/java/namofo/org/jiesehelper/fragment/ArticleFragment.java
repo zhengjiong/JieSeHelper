@@ -51,6 +51,7 @@ public class ArticleFragment extends NavigationBaseFragment {
                 .orderBy(true, "sort")//按sort升序查詢
                 .queryList();
         mPagerAdapter = new ArticlePagerAdapter(getChildFragmentManager(), mTabTitles, mFragments);
+        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPagerAdapter);
     }
 

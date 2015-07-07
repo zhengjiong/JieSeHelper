@@ -1,6 +1,5 @@
 package namofo.org.jiesehelper.fragment;
 
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;

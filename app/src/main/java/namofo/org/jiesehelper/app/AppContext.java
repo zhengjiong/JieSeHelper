@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
 
+import org.androidannotations.annotations.EApplication;
+
 import java.io.IOException;
 
 import namofo.org.jiesehelper.util.DBUtil;
@@ -13,6 +15,7 @@ import namofo.org.jiesehelper.util.DBUtil;
  * Date: 2015-06-22
  * Time: 22:14
  */
+@EApplication
 public class AppContext extends Application{
 
     @Override

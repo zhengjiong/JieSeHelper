@@ -7,5 +7,5 @@
     android:clipToPadding="false"
     android:paddingTop="5dp"
     android:paddingBottom="5dp">
-
+<!--<ImageView android:background="@android:color/transparent"/>-->
 </android.support.v7.widget.RecyclerView>

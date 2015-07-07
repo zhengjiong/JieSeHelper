@@ -1,35 +1,22 @@
 package namofo.org.jiesehelper.ui;
 
 import android.graphics.Bitmap;
-import android.os.Build;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextView;
-
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
-import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-
-import java.io.IOException;
 
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.bean.Article;
-import namofo.org.jiesehelper.http.OkHttpUtils;
 import namofo.org.jiesehelper.util.NetworkUtils;
 
 /**
