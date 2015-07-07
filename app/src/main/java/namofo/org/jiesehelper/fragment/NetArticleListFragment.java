@@ -15,7 +15,6 @@ import com.squareup.okhttp.Response;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -28,8 +27,8 @@ import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.bean.Article;
 import namofo.org.jiesehelper.constants.Constants;
 import namofo.org.jiesehelper.http.OkHttpUtils;
-import namofo.org.jiesehelper.ui.ArticleDetailForNetActivity;
 import namofo.org.jiesehelper.ui.ArticleDetailForNetActivity_;
+import namofo.org.jiesehelper.util.ToastUtils;
 
 /**
  * create by zhengjiong
@@ -71,7 +70,8 @@ public class NetArticleListFragment extends Fragment{
         OkHttpUtils.get(Constants.HTTP.HOST_URL, params, new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
-                mProgressWrapper.setVisibility(View.GONE);
+                e.printStackTrace();
+                getFailure();
             }
 
             @Override
@@ -86,14 +86,20 @@ public class NetArticleListFragment extends Fragment{
                         mItems.clear();
                     }
                     mItems.addAll(articles);
-                    runUIThread();
+                    getSuccess();
                 }
             }
         });
     }
 
     @UiThread
-    public void runUIThread(){
+    public void getFailure(){
+        ToastUtils.show(getActivity(), R.string.net_error);
+        mProgressWrapper.setVisibility(View.GONE);
+    }
+
+    @UiThread
+    public void getSuccess(){
         mProgressWrapper.setVisibility(View.GONE);
         mAdapter.notifyDataSetChanged();
     }
