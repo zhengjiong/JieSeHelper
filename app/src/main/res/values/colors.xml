@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="article_txt">#3e3e3e</color>
+    <color name="blue_light">#03a9f4</color>
+    <color name="blue_dark">#026592</color>
 </resources>

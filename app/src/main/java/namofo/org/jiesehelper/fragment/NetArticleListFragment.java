@@ -1,6 +1,8 @@
 package namofo.org.jiesehelper.fragment;
 
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -39,14 +41,19 @@ import namofo.org.jiesehelper.util.ToastUtils;
 public class NetArticleListFragment extends Fragment{
 
     int mPage = 0;
+
     List<Article> mItems = new ArrayList<>();
     ArticleAdapter mAdapter;
+    OnScrollListener mOnScrollListener;
 
     @ViewById(R.id.progress_wrapper)
     View mProgressWrapper;
 
     @ViewById(R.id.recyclerview)
     RecyclerView mRecyclerView;
+
+    @ViewById(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout mRefreshLayout;
 
     @AfterViews
     public void aftetViews() {
@@ -56,9 +63,20 @@ public class NetArticleListFragment extends Fragment{
 
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new ArticleAdapter();
+
+        mOnScrollListener = new OnScrollListener();
+        mRecyclerView.addOnScrollListener(mOnScrollListener);
+
         mRecyclerView.setAdapter(mAdapter);
+        mRefreshLayout.setColorSchemeResources(R.color.blue_light, android.R.color.holo_green_light, android.R.color.black);
+        mRefreshLayout.setOnRefreshListener(new RefreshListener());
 
         loadData();
+    }
+
+    @UiThread
+    void onRefreshComplete(){
+        mRefreshLayout.setRefreshing(false);
     }
 
     private void loadData() {
@@ -72,34 +90,40 @@ public class NetArticleListFragment extends Fragment{
             public void onFailure(Request request, IOException e) {
                 e.printStackTrace();
                 getFailure();
+                mOnScrollListener.setIsLoading(false);
             }
 
             @Override
             public void onResponse(Response response) throws IOException {
-                if (response.isSuccessful()) {
+                mOnScrollListener.setIsEnd(false);
+                mOnScrollListener.setIsLoading(false);
 
-                    String jsonResult = response.body().string();
-                    Log.i("zj", "getArticle = "+jsonResult);
-                    List<Article> articles = Article.json2List(jsonResult);
+                String jsonResult = response.body().string();
+                Log.i("zj", response.request().urlString()+"|getArticle = " + jsonResult);
+                List<Article> articles = Article.json2List(jsonResult);
 
-                    if (mPage == 0) {
-                        mItems.clear();
-                    }
-                    mItems.addAll(articles);
-                    getSuccess();
+                if (mPage == 0) {
+                    mItems.clear();
                 }
+                if (articles == null || articles.size() == 0 || articles.size() != 10) {
+                    mOnScrollListener.setIsEnd(true);
+                }
+                mItems.addAll(articles);
+                getSuccess();
             }
         });
     }
 
     @UiThread
     public void getFailure(){
+        mRefreshLayout.setRefreshing(false);
         ToastUtils.show(getActivity(), R.string.net_error);
         mProgressWrapper.setVisibility(View.GONE);
     }
 
     @UiThread
     public void getSuccess(){
+        mRefreshLayout.setRefreshing(false);
         mProgressWrapper.setVisibility(View.GONE);
         mAdapter.notifyDataSetChanged();
     }
@@ -147,4 +171,68 @@ public class NetArticleListFragment extends Fragment{
             return mItems == null ? 0 : mItems.size();
         }
     }
+
+    class RefreshListener implements SwipeRefreshLayout.OnRefreshListener {
+
+        @Override
+        public void onRefresh() {
+            mPage = 0;
+            loadData();
+        }
+    }
+
+    class OnScrollListener extends OnRcvScrollListener{
+
+        @Override
+        public void onBottom() {
+            mPage++;
+            mOnScrollListener.setIsLoading(true);
+            loadData();
+        }
+    }
+
+    /*public  static abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
+
+        private int previousTotal = 0; // The total number of items in the dataset after the last load
+        private boolean loading = true; // True if we are still waiting for the last set of data to load.
+        private int visibleThreshold = 5; // The minimum amount of items to have below your current scroll position before loading more.
+        int firstVisibleItem, visibleItemCount, totalItemCount;
+
+        private int current_page = 0;
+
+        private LinearLayoutManager mLinearLayoutManager;
+
+        public EndlessRecyclerOnScrollListener(LinearLayoutManager linearLayoutManager) {
+            this.mLinearLayoutManager = linearLayoutManager;
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+
+            visibleItemCount = recyclerView.getChildCount();
+            totalItemCount = mLinearLayoutManager.getItemCount();
+            firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+
+            if (loading) {
+                if (totalItemCount > previousTotal) {
+                    loading = false;
+                    previousTotal = totalItemCount;
+                }
+            }
+            if (!loading && (totalItemCount - visibleItemCount)
+                    <= (firstVisibleItem + visibleThreshold)) {
+                // End has been reached
+
+                // Do something
+                current_page++;
+
+                onLoadMore(current_page);
+
+                loading = true;
+            }
+        }
+
+        public abstract void onLoadMore(int current_page);
+    }*/
 }

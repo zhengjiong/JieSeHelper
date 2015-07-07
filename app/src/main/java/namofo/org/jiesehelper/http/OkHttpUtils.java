@@ -38,20 +38,24 @@ public class OkHttpUtils {
      * @return
      */
     public static String generateGetParams(HashMap<String, ?> params) {
-        StringBuilder url = new StringBuilder("?");
-        Iterator<? extends Map.Entry<String, ?>> i = params.entrySet().iterator();
-        while (i.hasNext()) {
-            Map.Entry<String, ?> entry = i.next();
-            String key = entry.getKey();
-            String value = entry.getValue().toString();
+        StringBuilder url = new StringBuilder();
+        if (params != null) {
+            url.append("?");
+            Iterator<? extends Map.Entry<String, ?>> i = params.entrySet().iterator();
+            while (i.hasNext()) {
+                Map.Entry<String, ?> entry = i.next();
+                String key = entry.getKey();
+                String value = entry.getValue().toString();
 
-            url.append(key);
-            url.append("=");
-            url.append(value);
-            if (i.hasNext()) {
-                url.append("&");
+                url.append(key);
+                url.append("=");
+                url.append(value);
+                if (i.hasNext()) {
+                    url.append("&");
+                }
             }
         }
+
         return url.toString();
     }
 }
