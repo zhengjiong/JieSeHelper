@@ -55,7 +55,6 @@ public class ArticleListFragment extends Fragment{
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(new MyRecyclerAdapter());
 
-
         /*Request request = new Request.Builder()
                 .url("http://jiese.ptxin.com/web.do?key=getAppNews&type=new&page=3")
                 .build();

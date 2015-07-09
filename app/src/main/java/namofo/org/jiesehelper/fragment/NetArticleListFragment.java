@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import namofo.org.jiesehelper.R;
+import namofo.org.jiesehelper.adapter.HeaderRecyclerViewAdapter;
 import namofo.org.jiesehelper.bean.Article;
 import namofo.org.jiesehelper.constants.Constants;
 import namofo.org.jiesehelper.http.OkHttpUtils;
@@ -42,7 +43,9 @@ public class NetArticleListFragment extends Fragment{
     int mPage = 0;
 
     List<Article> mItems = new ArrayList<>();
+
     ArticleAdapter mAdapter;
+
     OnScrollListener mOnScrollListener;
 
     @ViewById(R.id.progress_wrapper)
@@ -67,7 +70,7 @@ public class NetArticleListFragment extends Fragment{
         mRecyclerView.addOnScrollListener(mOnScrollListener);
 
         mRecyclerView.setAdapter(mAdapter);
-        mRefreshLayout.setColorSchemeResources(R.color.blue_light, android.R.color.holo_green_light, android.R.color.black);
+        mRefreshLayout.setColorSchemeResources(R.color.blue_light, android.R.color.holo_green_light, android.R.color.holo_orange_light);
         mRefreshLayout.setOnRefreshListener(new RefreshListener());
 
         loadData();
@@ -142,7 +145,14 @@ public class NetArticleListFragment extends Fragment{
         }
     }
 
-    class ArticleAdapter extends RecyclerView.Adapter<ArticleHolder>{
+    class FooterHolder extends RecyclerView.ViewHolder{
+
+        public FooterHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
+    class ArticleAdapter extends RecyclerView.Adapter<ArticleHolder> implements HeaderRecyclerViewAdapter.FooterRecyclerView{
 
         @Override
         public ArticleHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -152,6 +162,7 @@ public class NetArticleListFragment extends Fragment{
 
         @Override
         public void onBindViewHolder(ArticleHolder holder, final int position) {
+            Log.i("zj", "onBindViewHolder position =" + position);
             holder.bindData(position);
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -168,6 +179,17 @@ public class NetArticleListFragment extends Fragment{
         @Override
         public int getItemCount() {
             return mItems == null ? 0 : mItems.size();
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateFooterViewHolder(ViewGroup parent, int viewType) {
+            View footer = LayoutInflater.from(getActivity()).inflate(R.layout.loading_more_layout, parent, false);
+            return new FooterHolder(footer);
+        }
+
+        @Override
+        public void onBindFooterView(RecyclerView.ViewHolder holder, int position) {
+            Log.i("zj", "onBindFooterView position =" + position);
         }
     }
 
@@ -186,7 +208,7 @@ public class NetArticleListFragment extends Fragment{
         public void onBottom() {
             mPage++;
             mOnScrollListener.setIsLoading(true);
-            loadData();
+            //loadData();
         }
     }
 
