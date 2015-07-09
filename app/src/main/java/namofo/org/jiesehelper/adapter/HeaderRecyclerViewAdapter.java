@@ -105,10 +105,10 @@ public class HeaderRecyclerViewAdapter extends RecyclerView.Adapter {
         return mAdaptee.getItemViewType(position) + TYPE_ADAPTEE_OFFSET;
     }
 
-    public static interface FooterRecyclerView {
-        public RecyclerView.ViewHolder onCreateFooterViewHolder(ViewGroup parent, int viewType);
+    public interface FooterRecyclerView {
+        RecyclerView.ViewHolder onCreateFooterViewHolder(ViewGroup parent, int viewType);
 
-        public void onBindFooterView(RecyclerView.ViewHolder holder, int position);
+        void onBindFooterView(RecyclerView.ViewHolder holder, int position);
     }
 
 }

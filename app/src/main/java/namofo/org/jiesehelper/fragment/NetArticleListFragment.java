@@ -45,6 +45,7 @@ public class NetArticleListFragment extends Fragment{
     List<Article> mItems = new ArrayList<>();
 
     ArticleAdapter mAdapter;
+    HeaderRecyclerViewAdapter mFooterRecyclerViewAdapter;
 
     OnScrollListener mOnScrollListener;
 
@@ -65,11 +66,12 @@ public class NetArticleListFragment extends Fragment{
 
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new ArticleAdapter();
+        mFooterRecyclerViewAdapter = new HeaderRecyclerViewAdapter(mAdapter);
 
         mOnScrollListener = new OnScrollListener();
         mRecyclerView.addOnScrollListener(mOnScrollListener);
 
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mFooterRecyclerViewAdapter);
         mRefreshLayout.setColorSchemeResources(R.color.blue_light, android.R.color.holo_green_light, android.R.color.holo_orange_light);
         mRefreshLayout.setOnRefreshListener(new RefreshListener());
 
