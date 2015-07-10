@@ -85,6 +85,8 @@ dependencies {
     //compile 'com.squareup.dagger:dagger:1.2.1'
     //compile 'com.jakewharton:butterknife:5.1.1'
     compile 'de.hdodenhof:circleimageview:1.3.0'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+
     /*-------------------------androidannotations start------------------------*/
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"

@@ -3,6 +3,7 @@ package namofo.org.jiesehelper.ui;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -53,6 +54,7 @@ public class ArticleDetailForNetActivity extends AppCompatActivity{
 
     private void initWebView() {
         mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
 
         //设置是否支持缩放
         mWebView.getSettings().setBuiltInZoomControls(false);
@@ -64,6 +66,8 @@ public class ArticleDetailForNetActivity extends AppCompatActivity{
         }
         mWebView.setWebViewClient(new MyWebViewClient());
 
+        Log.i("zj", "loadUrl = " + mArticle.getDetailUrl());
+        //mWebView.loadUrl("http://v.qq.com/cover/t/tevaepwu8ehlrxp.html?vid=x0017lmdata");
         mWebView.loadUrl(mArticle.getDetailUrl());
     }
 
