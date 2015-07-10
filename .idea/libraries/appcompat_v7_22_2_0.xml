@@ -9,7 +9,6 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://O:/program/android-sdk-r13-windows/extras/android/m2repository/com/android/support/appcompat-v7/22.2.0/appcompat-v7-22.2.0-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/../../sdk_5.1.1/extras/android/m2repository/com/android/support/appcompat-v7/22.2.0/appcompat-v7-22.2.0-sources.jar!/" />
     </SOURCES>
   </library>
