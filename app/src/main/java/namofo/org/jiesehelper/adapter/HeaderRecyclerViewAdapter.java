@@ -47,8 +47,9 @@ import android.view.ViewGroup;
  * TOTALLY UNTESTED - USE WITH CARE - HAVE FUN :)
  */
 public class HeaderRecyclerViewAdapter extends RecyclerView.Adapter {
+    private boolean mShowFooter = false;
     private static final int TYPE_FOOTER = Integer.MIN_VALUE + 1;
-    private static final int TYPE_ADAPTEE_OFFSET = 2;
+    //private static final int TYPE_ADAPTEE_OFFSET = 2;
 
     private final RecyclerView.Adapter mAdaptee;
 
@@ -66,7 +67,7 @@ public class HeaderRecyclerViewAdapter extends RecyclerView.Adapter {
         if (viewType == TYPE_FOOTER && mAdaptee instanceof FooterRecyclerView) {
             return ((FooterRecyclerView) mAdaptee).onCreateFooterViewHolder(parent, viewType);
         }
-        return mAdaptee.onCreateViewHolder(parent, viewType - TYPE_ADAPTEE_OFFSET);
+        return mAdaptee.onCreateViewHolder(parent, viewType/* - TYPE_ADAPTEE_OFFSET*/);
     }
 
     @Override
@@ -88,10 +89,10 @@ public class HeaderRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     private boolean useFooter() {
-        if (mAdaptee instanceof FooterRecyclerView) {
+       /* if (mAdaptee instanceof FooterRecyclerView) {
             return true;
-        }
-        return false;
+        }*/
+        return mShowFooter;
     }
 
     @Override
@@ -99,10 +100,10 @@ public class HeaderRecyclerViewAdapter extends RecyclerView.Adapter {
         if (position == mAdaptee.getItemCount() && useFooter()) {
             return TYPE_FOOTER;
         }
-        if (mAdaptee.getItemCount() >= Integer.MAX_VALUE - TYPE_ADAPTEE_OFFSET) {
+        /*if (mAdaptee.getItemCount() >= Integer.MAX_VALUE - TYPE_ADAPTEE_OFFSET) {
             new IllegalStateException("HeaderRecyclerViewAdapter offsets your BasicItemType by " + TYPE_ADAPTEE_OFFSET + ".");
-        }
-        return mAdaptee.getItemViewType(position) + TYPE_ADAPTEE_OFFSET;
+        }*/
+        return mAdaptee.getItemViewType(position)/* + TYPE_ADAPTEE_OFFSET*/;
     }
 
     public interface FooterRecyclerView {
@@ -111,4 +112,12 @@ public class HeaderRecyclerViewAdapter extends RecyclerView.Adapter {
         void onBindFooterView(RecyclerView.ViewHolder holder, int position);
     }
 
+    public boolean isShowFooter() {
+        return mShowFooter;
+    }
+
+    public void setShowFooter(boolean mShowFooter) {
+        this.mShowFooter = mShowFooter;
+        this.notifyDataSetChanged();
+    }
 }

@@ -120,6 +120,7 @@ public class NetArticleListFragment extends Fragment{
 
     @UiThread
     public void getFailure(){
+        mFooterRecyclerViewAdapter.setShowFooter(false);
         mRefreshLayout.setRefreshing(false);
         ToastUtils.show(getActivity(), R.string.net_error);
         mProgressWrapper.setVisibility(View.GONE);
@@ -127,9 +128,10 @@ public class NetArticleListFragment extends Fragment{
 
     @UiThread
     public void getSuccess(){
+        mFooterRecyclerViewAdapter.setShowFooter(false);
         mRefreshLayout.setRefreshing(false);
         mProgressWrapper.setVisibility(View.GONE);
-        mAdapter.notifyDataSetChanged();
+        mFooterRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     class ArticleHolder extends RecyclerView.ViewHolder{
@@ -210,7 +212,14 @@ public class NetArticleListFragment extends Fragment{
         public void onBottom() {
             mPage++;
             mOnScrollListener.setIsLoading(true);
-            //loadData();
+            mFooterRecyclerViewAdapter.setShowFooter(true);
+            mRecyclerView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loadData();
+                }
+            }, 2000);
+
         }
     }
 
