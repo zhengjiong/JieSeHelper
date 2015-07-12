@@ -17,6 +17,7 @@ import java.util.List;
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.adapter.ArticlePagerAdapter;
 import namofo.org.jiesehelper.bean.ArticleCategory;
+import namofo.org.jiesehelper.bean.ArticleCategory$Table;
 
 /**
  * 文章
@@ -47,7 +48,8 @@ public class ArticleFragment extends NavigationBaseFragment {
     private void initViewPager() {
         mTabTitles = new Select()
                 .from(ArticleCategory.class)
-                .where(Condition.column("show").eq(1))
+                //.where(Condition.column("show").eq(1))
+                .where(Condition.column(ArticleCategory$Table.SHOW).eq(1))
                 .orderBy(true, "sort")//按sort升序查詢
                 .queryList();
         mPagerAdapter = new ArticlePagerAdapter(getChildFragmentManager(), mTabTitles, mFragments);

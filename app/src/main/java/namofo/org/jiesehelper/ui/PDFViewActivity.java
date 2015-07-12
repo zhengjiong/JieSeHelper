@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.joanzapata.pdfview.PDFView;
+import com.joanzapata.pdfview.exception.FileNotFoundException;
 import com.joanzapata.pdfview.listener.OnLoadCompleteListener;
 import com.raizlabs.android.dbflow.sql.builder.Condition;
 import com.raizlabs.android.dbflow.sql.language.Select;
@@ -19,6 +20,7 @@ import org.androidannotations.annotations.ViewById;
 
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.bean.Article;
+import namofo.org.jiesehelper.util.ToastUtils;
 
 
 /**
@@ -88,7 +90,9 @@ public class PDFViewActivity extends AppCompatActivity {
 
     protected void loadPDF() {
         if (mArticle != null) {
-            PDFView.Configurator config = mPdfView.fromAsset(mArticle.getFile_path());
+
+            try {
+                PDFView.Configurator config = mPdfView.fromAsset(mArticle.getFile_path());
 
             /*if (mArticle.getStart_page() != 0 || mArticle.getEnd_page() != 0){
                 int[] pages = new int[mArticle.getEnd_page() - mArticle.getStart_page() + 1];
@@ -100,11 +104,15 @@ public class PDFViewActivity extends AppCompatActivity {
             }else{
                 //config.defaultPage(0);//默认从第一页开始
             }*/
-            config.onLoad(onLoadCompleteListener);
-            config.swipeVertical(true);
-            config.enableDoubletap(true);
-            config.enableSwipe(true);
-            config.load();
+                config.onLoad(onLoadCompleteListener);
+                config.swipeVertical(true);
+                config.enableDoubletap(true);
+                config.enableSwipe(true);
+                config.load();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                ToastUtils.show(PDFViewActivity.this, "文件未找到");
+            }
         }
     }
 

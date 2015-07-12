@@ -89,7 +89,7 @@ public class HeaderRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     private boolean useFooter() {
-       /* if (mAdaptee instanceof FooterRecyclerView) {
+        /*if (mAdaptee instanceof FooterRecyclerView) {
             return true;
         }*/
         return mShowFooter;

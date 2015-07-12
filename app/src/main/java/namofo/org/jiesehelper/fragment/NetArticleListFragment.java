@@ -72,7 +72,7 @@ public class NetArticleListFragment extends Fragment{
         mRecyclerView.addOnScrollListener(mOnScrollListener);
 
         mRecyclerView.setAdapter(mFooterRecyclerViewAdapter);
-        mRefreshLayout.setColorSchemeResources(R.color.blue_light, android.R.color.holo_green_light, android.R.color.holo_orange_light);
+        mRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_dark, android.R.color.holo_green_dark, android.R.color.holo_orange_dark);
         mRefreshLayout.setOnRefreshListener(new RefreshListener());
 
         loadData();
@@ -218,53 +218,8 @@ public class NetArticleListFragment extends Fragment{
                 public void run() {
                     loadData();
                 }
-            }, 2000);
+            }, 500);
 
         }
     }
-
-    /*public  static abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
-
-        private int previousTotal = 0; // The total number of items in the dataset after the last load
-        private boolean loading = true; // True if we are still waiting for the last set of data to load.
-        private int visibleThreshold = 5; // The minimum amount of items to have below your current scroll position before loading more.
-        int firstVisibleItem, visibleItemCount, totalItemCount;
-
-        private int current_page = 0;
-
-        private LinearLayoutManager mLinearLayoutManager;
-
-        public EndlessRecyclerOnScrollListener(LinearLayoutManager linearLayoutManager) {
-            this.mLinearLayoutManager = linearLayoutManager;
-        }
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-
-            visibleItemCount = recyclerView.getChildCount();
-            totalItemCount = mLinearLayoutManager.getItemCount();
-            firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
-
-            if (loading) {
-                if (totalItemCount > previousTotal) {
-                    loading = false;
-                    previousTotal = totalItemCount;
-                }
-            }
-            if (!loading && (totalItemCount - visibleItemCount)
-                    <= (firstVisibleItem + visibleThreshold)) {
-                // End has been reached
-
-                // Do something
-                current_page++;
-
-                onLoadMore(current_page);
-
-                loading = true;
-            }
-        }
-
-        public abstract void onLoadMore(int current_page);
-    }*/
 }

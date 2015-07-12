@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="关于此APP">
+        <Preference
+            android:summary="目前还处于开发阶段,目前只提供看文章,收藏文章和登录功能,之后会逐步增加戒色记录和排行榜等功能,有更好的意见可以联系qq253586504"
+            android:title="" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="联系方式">
+        <Preference
+            android:key="url"
+            android:summary="大悲拔苦戒邪淫论坛:http://www.namofo.org/"
+            android:title="官网" />
+        <Preference
+            android:key="yy"
+            android:summary="大悲拔苦公益讲堂YY房间:33069997"
+            android:title="YY" />
+        <Preference
+            android:key="phone"
+            android:summary="13888888888"
+            android:title="联系电话" />
+        <Preference
+            android:key="email"
+            android:summary="253586504@qq.com"
+            android:title="联系邮箱" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

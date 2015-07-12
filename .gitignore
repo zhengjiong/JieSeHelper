@@ -28,3 +28,7 @@ proguard/
 
 .idea/workspace.xml
 app/src/main/assets/jiexieyinggaiming.pdf
+
+.gradle/2.4/taskArtifacts/fileSnapshots.bin
+.gradle/2.4/taskArtifacts/outputFileStates.bin
+.gradle/2.4/taskArtifacts/taskArtifacts.bin

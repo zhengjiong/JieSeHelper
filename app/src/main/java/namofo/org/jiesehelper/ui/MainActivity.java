@@ -22,8 +22,8 @@ import java.util.List;
 
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.fragment.ArticleFragment_;
+import namofo.org.jiesehelper.fragment.MyFavoritesFragment_;
 import namofo.org.jiesehelper.fragment.NavigationBaseFragment;
-import namofo.org.jiesehelper.fragment.TopUsersFragment_;
 
 /**
  * 應用程序首頁
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     @AfterViews
     public void initData() {
         mFragments.add(ArticleFragment_.builder().build());
-        mFragments.add(TopUsersFragment_.builder().build());
+        mFragments.add(MyFavoritesFragment_.builder().build());
 
         initListener();
         selectItem();
@@ -62,9 +62,13 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.article:
                         mCurrentIndex = 0;
                         break;
-                    case R.id.top:
+                    case R.id.favorites:
                         mCurrentIndex = 1;
                         break;
+                    case R.id.setting:
+                        mDrawerLayout.closeDrawers();
+                        AboutActivity_.intent(MainActivity.this).start();
+                        return true;
                     default:
 
                         return true;
@@ -110,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            AboutActivity_.intent(MainActivity.this).start();
             return true;
         }
 

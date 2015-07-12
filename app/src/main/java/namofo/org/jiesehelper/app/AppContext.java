@@ -4,11 +4,9 @@ import android.app.Application;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 import org.androidannotations.annotations.EApplication;
-
-import java.io.IOException;
-
-import namofo.org.jiesehelper.util.DBUtil;
 
 /**
  * create by zhengjiong
@@ -21,12 +19,15 @@ public class AppContext extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        FlowManager.init(this);
+        JodaTimeAndroid.init(this);
 
-        try {
+        /*boolean delResult = deleteDatabase("jiesehelper.db");
+        Log.i("zj", "delDatabase = " + delResult);*/
+        FlowManager.init(this);
+        /*try {
             DBUtil.copyDataBase(this);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
