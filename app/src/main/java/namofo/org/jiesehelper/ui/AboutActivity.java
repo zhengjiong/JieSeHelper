@@ -23,8 +23,6 @@ public class AboutActivity extends AppCompatActivity{
     @ViewById(R.id.toolbar)
     Toolbar mToolbar;
 
-
-
     @AfterViews
     public void afterViews(){
         initToolbar();

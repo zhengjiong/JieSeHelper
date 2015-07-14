@@ -35,9 +35,6 @@ public class MyFavoritesFragment extends NavigationBaseFragment {
     @ViewById(R.id.recyclerview)
     RecyclerView mRecyclerView;
 
-    @ViewById(R.id.refresh_layout)
-    SwipeRefreshLayout mRefreshLayout;
-
     @AfterViews
     public void afterViews() {
         initToolbar("我的收藏");
@@ -47,14 +44,6 @@ public class MyFavoritesFragment extends NavigationBaseFragment {
     }
 
     private void initListener() {
-        mRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_dark, android.R.color.holo_green_dark, android.R.color.holo_orange_dark);
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                reLoad();
-                mRefreshLayout.setRefreshing(false);
-            }
-        });
     }
 
     private void reLoad() {
@@ -77,6 +66,10 @@ public class MyFavoritesFragment extends NavigationBaseFragment {
 
     }
 
+    /**
+     * 使用eventbus重新刷新列表
+     * @param save
+     */
     public void onEventMainThread(Boolean save) {
         reLoad();
     }

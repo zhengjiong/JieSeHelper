@@ -74,6 +74,15 @@ public class Article extends BaseModel implements Serializable{
         saveForeignKeyModel = false)
     ArticleFileType articleFileType;
 
+    public Article(){}
+
+    public Article(int nid, String subject, String imgUrl, String detailUrl) {
+        this.nid = nid;
+        this.subject = subject;
+        this.imgUrl = imgUrl;
+        this.detailUrl = detailUrl;
+    }
+
     public int getId() {
         return id;
     }
