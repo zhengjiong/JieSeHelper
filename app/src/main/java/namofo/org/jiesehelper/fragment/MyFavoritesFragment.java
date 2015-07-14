@@ -1,5 +1,6 @@
 package namofo.org.jiesehelper.fragment;
 
+import android.app.Activity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.adapter.MyFavoritesAdapter;
 import namofo.org.jiesehelper.bean.Favorites;
@@ -49,16 +51,20 @@ public class MyFavoritesFragment extends NavigationBaseFragment {
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                List<Favorites> favorites = new Select().from(Favorites.class).where(Condition.column(Favorites$Table.DATE)).queryList();
-                if (favorites != null) {
-                    mFavorites.clear();
-                    mFavorites.addAll(favorites);
-
-                    mAdater.notifyDataSetChanged();
-                }
+                reLoad();
                 mRefreshLayout.setRefreshing(false);
             }
         });
+    }
+
+    private void reLoad() {
+        List<Favorites> favorites = new Select().from(Favorites.class).where(Condition.column(Favorites$Table.DATE)).queryList();
+        if (favorites != null) {
+            mFavorites.clear();
+            mFavorites.addAll(favorites);
+
+            mAdater.notifyDataSetChanged();
+        }
     }
 
     private void loadData() {
@@ -71,4 +77,19 @@ public class MyFavoritesFragment extends NavigationBaseFragment {
 
     }
 
+    public void onEventMainThread(Boolean save) {
+        reLoad();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getDefault().unregister(this);
+    }
 }

@@ -18,6 +18,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
+import de.greenrobot.event.EventBus;
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.bean.Article;
 import namofo.org.jiesehelper.bean.Favorites;
@@ -172,6 +173,7 @@ public class ArticleDetailForNetActivity extends AppCompatActivity{
             e.printStackTrace();
         }
 
+        EventBus.getDefault().post(new Boolean(save));
     }
 
 }
