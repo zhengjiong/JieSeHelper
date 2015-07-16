@@ -15,12 +15,15 @@ import com.raizlabs.android.dbflow.sql.language.Select;
 
 import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.bean.Article;
+import namofo.org.jiesehelper.util.FileUtils;
 
 /**
  * 文章詳情(Txt文檔)
@@ -62,7 +65,7 @@ public class ArticleDetailForTxtActivity extends AppCompatActivity{
 
     @AfterExtras
     public void afterExtras(){
-        mArticle = new Select("title", "content")
+        mArticle = new Select("subject", "file_path")
                 .from(Article.class)
                 .where(Condition.column("id").eq(mId))
                 .querySingle();
@@ -71,11 +74,23 @@ public class ArticleDetailForTxtActivity extends AppCompatActivity{
     @AfterViews
     public void afterViews(){
         Log.i("zj", "afterViews");
-        mTxtContent.setText(mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent()+mArticle.getContent());
         initToolbar();
 
         mCollapsingToolbar.setExpandedTitleTextAppearance(R.style.CollapsingToolbarTextAppearance);
         mCollapsingToolbar.setTitle(mTitle);
+
+        loadTxt();
+    }
+
+    @Background
+    void loadTxt(){
+        String content = FileUtils.readFileFromAsset("txt/jieweiliangyao/" + mArticle.getFile_path(), this);
+        setTxt(content);
+    }
+
+    @UiThread
+    void setTxt(String content){
+        mTxtContent.setText(content);
     }
 
     void initToolbar(){

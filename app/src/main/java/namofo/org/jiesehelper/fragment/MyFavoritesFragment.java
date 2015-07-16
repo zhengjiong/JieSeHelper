@@ -77,6 +77,9 @@ public class MyFavoritesFragment extends NavigationBaseFragment {
 
     }
 
+    /**
+     * eventbus
+     */
     public void onEventMainThread(Boolean save) {
         reLoad();
     }

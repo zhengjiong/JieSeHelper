@@ -1,6 +1,5 @@
 package namofo.org.jiesehelper.fragment;
 
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +21,7 @@ import java.util.List;
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.bean.Article;
 import namofo.org.jiesehelper.ui.ArticleDetailForDbActivity_;
+import namofo.org.jiesehelper.ui.ArticleDetailForTxtActivity_;
 import namofo.org.jiesehelper.ui.PDFViewActivity_;
 
 /**
@@ -105,7 +105,6 @@ public class ArticleListFragment extends Fragment{
                 @Override
                 public void onClick(View v) {
                     Article article = mItems.get(position);
-                    Snackbar.make(holder.mView, article.getSubject(), Snackbar.LENGTH_SHORT).show();
                     switch (article.getArticleFileType().getFile_name()) {
                         case "db":
                             ArticleDetailForDbActivity_
@@ -115,7 +114,11 @@ public class ArticleListFragment extends Fragment{
                                     .start();
                             break;
                         case "txt":
-
+                            ArticleDetailForTxtActivity_
+                                    .intent(getActivity())
+                                    .mId(article.getId())
+                                    .mTitle(article.getSubject())
+                                    .start();
                             break;
                         case "html":
 

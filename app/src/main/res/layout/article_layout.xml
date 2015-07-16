@@ -29,9 +29,9 @@
             android:layout_height="50dp"
             app:tabIndicatorColor="@android:color/white"
             app:tabContentStart="61dp"
-            app:tabMode="fixed"
+            app:tabMode="scrollable"
             />
-        <!--app:tabMode="scrollable"-->
+        <!--app:tabMode="scrollable,fixed"-->
 
         <!--app:tabIndicatorColor="@android:color/white"
         app:tabTextColor="@android:color/white"-->
