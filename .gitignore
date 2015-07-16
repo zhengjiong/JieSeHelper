@@ -27,7 +27,7 @@ proguard/
 *.log
 
 .idea/workspace.xml
-app/src/main/assets/jiexieyinggaiming.pdf
+#app/src/main/assets/jiexieyinggaiming.pdf
 
 
 
