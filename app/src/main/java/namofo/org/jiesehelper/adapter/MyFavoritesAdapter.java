@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import namofo.org.jiesehelper.R;
+import namofo.org.jiesehelper.bean.Article;
 import namofo.org.jiesehelper.bean.Favorites;
+import namofo.org.jiesehelper.ui.ArticleDetailForNetActivity_;
 
 /**
  * create by zhengjiong
@@ -24,6 +26,7 @@ public class MyFavoritesAdapter extends RecyclerView.Adapter {
     List<Favorites> mFavorites = new ArrayList<>();
 
     static class MyFavoritesViewHolder extends RecyclerView.ViewHolder{
+        View mView;
         TextView txtTitle;
 
         public MyFavoritesViewHolder(View itemView) {
@@ -48,9 +51,24 @@ public class MyFavoritesAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Favorites favorites = mFavorites.get(position);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        final Favorites favorites = mFavorites.get(position);
         ((MyFavoritesViewHolder)holder).bindData(favorites);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Article article = new Article(
+                        favorites.getId(),
+                        favorites.getSubject(),
+                        favorites.getImgUrl(),
+                        favorites.getDetailUrl()
+                );
+                ArticleDetailForNetActivity_
+                        .intent(mContext)
+                        .mArticle(article)
+                        .start();
+            }
+        });
     }
 
     @Override

@@ -12,16 +12,22 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.raizlabs.android.dbflow.sql.builder.Condition;
+import com.raizlabs.android.dbflow.sql.language.Select;
+
 import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import de.greenrobot.event.EventBus;
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.bean.Article;
 import namofo.org.jiesehelper.bean.Favorites;
+import namofo.org.jiesehelper.bean.Favorites$Table;
 
 /**
  * create by zhengjiong
@@ -50,8 +56,26 @@ public class ArticleDetailForNetActivity extends AppCompatActivity{
     @AfterViews
     public void afterView(){
         initToolbar();
-
+        setFavoritesStatus();
         initWebView();
+    }
+
+    @Background
+    public void setFavoritesStatus(){
+
+        Favorites favorites = new Select("id")
+                .from(Favorites.class)
+                .where(Condition.column(Favorites$Table.ID).eq(mArticle.getNid()))
+                .querySingle();
+
+        mIsSaved = (favorites != null);
+        Log.i("zj", "favorites == null is " + mIsSaved);
+        setOptionMenu(mIsSaved);
+    }
+
+    @UiThread
+    public void setOptionMenu(boolean isSaved){
+        invalidateOptionsMenu();
     }
 
     private void initWebView() {
@@ -112,6 +136,19 @@ public class ArticleDetailForNetActivity extends AppCompatActivity{
             Log.i("zj", "newProgrss=" + newProgress);
            // mProgressView.setProgress(newProgress);
         }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem saveMenu = menu.findItem(R.id.action_save);
+        if (mIsSaved) {
+            saveMenu.setIcon(R.mipmap.ic_favorite_white);
+            saveMenu.setTitle("取消收藏");
+        } else {
+            saveMenu.setIcon(R.mipmap.ic_favorite_outline_white);
+            saveMenu.setTitle("收藏");
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
