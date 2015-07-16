@@ -47,6 +47,7 @@ public class ArticleListFragment extends Fragment{
         mItems = new Select("id", "subject", "file_type")
                 .from(Article.class)
                 .where(Condition.column("category").eq(mCategoryId))
+                .orderBy(true, "sort")//按sort升序查詢
                 .queryList();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -86,7 +87,7 @@ public class ArticleListFragment extends Fragment{
         }
 
         public void bindData(int position){
-            mTxtTitle.setText(mItems.get(position).getSubject() + "," + mItems.get(position).getArticleFileType().getFile_name());
+            mTxtTitle.setText(mItems.get(position).getSubject());
         }
     }
 

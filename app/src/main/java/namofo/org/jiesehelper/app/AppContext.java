@@ -1,12 +1,17 @@
 package namofo.org.jiesehelper.app;
 
 import android.app.Application;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
+import com.raizlabs.android.dbflow.DatabaseHelperListener;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
 import org.androidannotations.annotations.EApplication;
+
+import namofo.org.jiesehelper.constants.AppDatabase;
 
 /**
  * create by zhengjiong
@@ -23,6 +28,25 @@ public class AppContext extends Application{
 
         /*boolean delResult = deleteDatabase("jiesehelper.db");
         Log.i("zj", "delDatabase = " + delResult);*/
+
+        FlowManager.setDatabaseListener(AppDatabase.NAME, new DatabaseHelperListener() {
+            @Override
+            public void onOpen(SQLiteDatabase sqLiteDatabase) {
+                Log.i("zj", "onOpen " + sqLiteDatabase.getVersion());
+            }
+
+            @Override
+            public void onCreate(SQLiteDatabase sqLiteDatabase) {
+                Log.i("zj", "onCreate " + sqLiteDatabase.getVersion());
+            }
+
+            @Override
+            public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+                Log.i("zj", "onUpgrade i=" + i + " ,i1" + i1);
+            }
+        });
+        int version = FlowManager.getDatabase(AppDatabase.NAME).getDatabaseVersion();
+        Log.i("zj", "version=" + version);
         FlowManager.init(this);
         /*try {
             DBUtil.copyDataBase(this);
