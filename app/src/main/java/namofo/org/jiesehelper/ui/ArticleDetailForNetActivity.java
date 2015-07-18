@@ -1,6 +1,5 @@
 package namofo.org.jiesehelper.ui;
 
-import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,11 +22,12 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import de.greenrobot.event.EventBus;
 import namofo.org.jiesehelper.R;
 import namofo.org.jiesehelper.bean.Article;
+import namofo.org.jiesehelper.bean.ArticleFileType;
 import namofo.org.jiesehelper.bean.Favorites;
 import namofo.org.jiesehelper.bean.Favorites$Table;
+import namofo.org.jiesehelper.util.ArticleUtils;
 
 /**
  * create by zhengjiong
@@ -174,7 +174,7 @@ public class ArticleDetailForNetActivity extends AppCompatActivity{
                     item.setTitle("收藏");
                     Snackbar.make(mToolbar, "取消收藏成功", Snackbar.LENGTH_SHORT).show();
                 }
-                saveOrDelArticle(mIsSaved);
+                save(mIsSaved);
                 break;
         }
 
@@ -185,32 +185,9 @@ public class ArticleDetailForNetActivity extends AppCompatActivity{
      * 保存或刪除收藏
      * @param save, true:保存, false刪除
      */
-    void saveOrDelArticle(boolean save) {
-        Favorites favorites = new Favorites(
-                mArticle.getNid(),
-                mArticle.getSubject(),
-                mArticle.getImgUrl(),
-                mArticle.getDetailUrl(),
-                System.currentTimeMillis()
-        );
-        try {
-            if (save) {
-                /*if (favorites.exists()) {
-                    favorites.update();
-                } else {
-                    favorites.insert();
-                }*/
-                favorites.update();
-                Log.i("zj", "update");
-            } else {
-                favorites.delete();
-                Log.i("zj", "delete");
-            }
-        } catch (SQLiteException e) {
-            e.printStackTrace();
-        }
-
-        EventBus.getDefault().post(new Boolean(save));
+    void save(boolean save) {
+        mArticle.setArticleFileType(new ArticleFileType(6));
+        ArticleUtils.saveOrDeleteArticle(mArticle, save);
     }
 
 }

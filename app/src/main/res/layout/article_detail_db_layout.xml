@@ -85,17 +85,20 @@
 
     </android.support.v4.widget.NestedScrollView>
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@mipmap/ic_discuss"
+        android:layout_margin="8dp"
+        android:src="@mipmap/ic_favorite_outline_white"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right"
         app:backgroundTint="#cddc39"
         app:rippleColor="#7B8522"
-        app:elevation="5dp"
-        app:fabSize="normal"
+        app:fabSize="mini"
+        app:borderWidth="0dp"
         />
+    <!--app:borderWidth設置為0, 才可以顯示出elevation, 不設置elevation會使用默認值-->
+
     <!--
     <item name="android:background">@drawable/fab_background</item>
     <item name="backgroundTint">?attr/colorAccent</item>

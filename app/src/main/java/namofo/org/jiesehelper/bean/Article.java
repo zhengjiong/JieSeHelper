@@ -36,7 +36,7 @@ public class Article extends BaseModel implements Serializable{
     String content;
 
     @Column(name = "category")
-    int category;
+    int category;//文章分類
 
     @Column(name = "iscollect")
     boolean iscollect;

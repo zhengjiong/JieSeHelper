@@ -11,6 +11,12 @@ import namofo.org.jiesehelper.constants.AppDatabase;
 @Table(databaseName = AppDatabase.NAME, tableName = "article_file_type")
 public class ArticleFileType extends BaseModel {
 
+    public ArticleFileType(){}
+
+    public ArticleFileType(int id) {
+        this.id = id;
+    }
+
     @PrimaryKey
     @Column(name = "id")
     int id;

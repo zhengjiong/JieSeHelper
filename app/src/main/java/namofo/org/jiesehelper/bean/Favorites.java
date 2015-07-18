@@ -17,12 +17,20 @@ public class Favorites extends BaseModel{
 
     public Favorites(){}
 
-    public Favorites(int id, String subject, String imgUrl, String detailUrl, long date) {
+    public Favorites(int id, String subject, long date, int file_type) {
+        this.id = id;
+        this.subject = subject;
+        this.date = date;
+        this.file_type = file_type;
+    }
+
+    public Favorites(int id, String subject, String imgUrl, String detailUrl, long date, int file_type) {
         this.id = id;
         this.subject = subject;
         this.imgUrl = imgUrl;
         this.detailUrl = detailUrl;
         this.date = date;
+        this.file_type = file_type;
     }
 
     @Column
@@ -40,6 +48,18 @@ public class Favorites extends BaseModel{
 
     @Column(name = "date")
     long date;//收藏時間
+
+    @Column(name = "file_type")
+    int file_type;
+
+    /*@Column
+    @ForeignKey(
+            references = {@ForeignKeyReference(columnName = "file_type",
+                    columnType = Integer.class,
+                    foreignColumnName = "id"),},
+            saveForeignKeyModel = false)
+    ArticleFileType articleFileType;*/
+
 
     public int getId() {
         return id;
@@ -73,11 +93,20 @@ public class Favorites extends BaseModel{
         this.detailUrl = detailUrl;
     }
 
-    public long getData() {
+    public long getDate() {
         return date;
     }
 
-    public void setData(long data) {
-        this.date = data;
+    public void setDate(long date) {
+        this.date = date;
     }
+
+    public int getFile_type() {
+        return file_type;
+    }
+
+    public void setFile_type(int file_type) {
+        this.file_type = file_type;
+    }
+
 }
