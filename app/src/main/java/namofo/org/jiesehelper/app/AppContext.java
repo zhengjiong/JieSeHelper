@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.raizlabs.android.dbflow.DatabaseHelperListener;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.umeng.analytics.MobclickAgent;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -25,7 +26,7 @@ public class AppContext extends Application{
     public void onCreate() {
         super.onCreate();
         JodaTimeAndroid.init(this);
-
+        MobclickAgent.openActivityDurationTrack(false);//禁止默认的页面统计方式，这样将不会再自动统计Activity。
         /*boolean delResult = deleteDatabase("jiesehelper.db");
         Log.i("zj", "delDatabase = " + delResult);*/
 

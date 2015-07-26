@@ -22,6 +22,7 @@
         android:textColor="@android:color/white"
         android:textSize="16sp"
         android:text="zhengjiong"
+        android:visibility="gone"
 
         />
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -32,6 +33,7 @@
         android:layout_above="@id/txt_username"
         android:layout_marginBottom="10dp"
         android:src="@mipmap/ic_launcher"
+        android:visibility="gone"
         />
     <!--app:border_width="2dp"
     app:border_color="?attr/colorPrimary"-->

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import com.umeng.analytics.MobclickAgent;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -222,4 +223,5 @@ public class NetArticleListFragment extends Fragment{
 
         }
     }
+
 }

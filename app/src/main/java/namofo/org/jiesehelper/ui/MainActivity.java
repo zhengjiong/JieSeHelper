@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengUpdateAgent;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     @AfterViews
     public void initData() {
+        UmengUpdateAgent.update(this);
         mFragments.add(ArticleFragment_.builder().build());
         mFragments.add(MyFavoritesFragment_.builder().build());
 
@@ -175,4 +179,15 @@ public class MainActivity extends AppCompatActivity {
                     .commit();*/
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }
