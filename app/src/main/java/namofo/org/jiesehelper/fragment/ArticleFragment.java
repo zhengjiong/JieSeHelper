@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 
 import com.raizlabs.android.dbflow.sql.builder.Condition;
 import com.raizlabs.android.dbflow.sql.language.Select;
+import com.umeng.analytics.MobclickAgent;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -79,4 +80,12 @@ public class ArticleFragment extends NavigationBaseFragment {
         mTabLayout.setTabsFromPagerAdapter(mPagerAdapter);
     }
 
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("文章列表");
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("文章列表");
+    }
 }

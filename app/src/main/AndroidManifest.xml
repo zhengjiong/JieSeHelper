@@ -8,15 +8,16 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
-    <meta-data android:value="559f8bbd67e58ee7c6001635" android:name="UMENG_APPKEY"/>
-    <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
-
     <application
         android:name=".app.AppContext_"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <meta-data android:name="UMENG_APPKEY" android:value="559f8bbd67e58ee7c6001635"/>
+        <meta-data android:name="UMENG_CHANNEL" android:value="${channel}"/>
+
         <activity
             android:name=".ui.MainActivity_"
             android:theme="@style/MainTheme">
@@ -31,6 +32,16 @@
         <activity android:name=".ui.ArticleDetailForTxtActivity_" android:theme="@style/MainTheme" />
         <activity android:name=".ui.ArticleDetailForNetActivity_"/>
         <activity android:name=".ui.AboutActivity_"/>
+
+
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>

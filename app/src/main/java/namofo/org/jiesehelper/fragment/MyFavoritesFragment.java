@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.raizlabs.android.dbflow.sql.builder.Condition;
 import com.raizlabs.android.dbflow.sql.language.Select;
+import com.umeng.analytics.MobclickAgent;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -84,5 +85,14 @@ public class MyFavoritesFragment extends NavigationBaseFragment {
     public void onDetach() {
         super.onDetach();
         EventBus.getDefault().unregister(this);
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("我的收藏"); //统计页面
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("我的收藏");
     }
 }
