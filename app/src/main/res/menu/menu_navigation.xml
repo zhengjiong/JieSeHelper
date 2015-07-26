@@ -4,13 +4,13 @@
         <item
             android:id="@+id/article"
             android:title="文章"
-            android:icon="@drawable/abc_ic_menu_paste_mtrl_am_alpha"
+            android:icon="@mipmap/ic_home_grey600"
             android:checked="true"
             />
         <item
             android:id="@+id/favorites"
             android:title="我的收藏"
-            android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
+            android:icon="@mipmap/ic_favorite_outline_grey"
             />
         <!--<item
             android:id="@+id/top"
@@ -30,7 +30,7 @@
         <item
             android:id="@+id/setting"
             android:title="设置"
-            android:icon="@drawable/abc_ic_menu_share_mtrl_alpha"
+            android:icon="@mipmap/ic_settings_grey"
             />
     </group>
 </menu>

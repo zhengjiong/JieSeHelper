@@ -1,10 +1,7 @@
 package namofo.org.jiesehelper.ui;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.umeng.analytics.MobclickAgent;
