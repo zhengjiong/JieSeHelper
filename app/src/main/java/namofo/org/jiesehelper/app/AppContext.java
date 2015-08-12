@@ -1,7 +1,9 @@
 package namofo.org.jiesehelper.app;
 
 import android.app.Application;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.raizlabs.android.dbflow.DatabaseHelperListener;
@@ -24,6 +26,7 @@ public class AppContext extends Application{
     public void onCreate() {
         super.onCreate();
         //JodaTimeAndroid.init(this);
+        //getDeviceInfo(this);
         MobclickAgent.openActivityDurationTrack(false);//禁止默认的页面统计方式，这样将不会再自动统计Activity。
         /*boolean delResult = deleteDatabase("jiesehelper.db");
         Log.i("zj", "delDatabase = " + delResult);*/
@@ -52,5 +55,35 @@ public class AppContext extends Application{
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+    }
+
+    public static String getDeviceInfo(Context context) {
+        try{
+            org.json.JSONObject json = new org.json.JSONObject();
+            android.telephony.TelephonyManager tm = (android.telephony.TelephonyManager) context
+                    .getSystemService(Context.TELEPHONY_SERVICE);
+
+            String device_id = tm.getDeviceId();
+
+            android.net.wifi.WifiManager wifi = (android.net.wifi.WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+
+            String mac = wifi.getConnectionInfo().getMacAddress();
+            json.put("mac", mac);
+
+            if( TextUtils.isEmpty(device_id) ){
+                device_id = mac;
+            }
+
+            if( TextUtils.isEmpty(device_id) ){
+                device_id = android.provider.Settings.Secure.getString(context.getContentResolver(),android.provider.Settings.Secure.ANDROID_ID);
+            }
+
+            json.put("device_id", device_id);
+
+            return json.toString();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }
