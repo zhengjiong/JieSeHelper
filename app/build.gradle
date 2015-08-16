@@ -66,11 +66,11 @@ android {
         flavor.manifestPlaceholders = [channel: name]
     }
 
-    sourceSets {
+    /*sourceSets {
         main {
             jniLibs.srcDirs = [ 'libs' ]
         }
-    }
+    }*/
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
