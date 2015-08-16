@@ -17,6 +17,8 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "0.0.1"
+
+        //manifestPlaceholders = [channel : "test"]
     }
 
     signingConfigs{
@@ -30,11 +32,24 @@ android {
 
         buildTypes {
             debug {
+                buildConfigField("boolean", "DEV", "true")
                 //signingConfig signingConfigs.releaseConfig
+
+                // debug模式下，显示log
+                buildConfigField("boolean", "LOG_DEBUG", "true")
+
+                // 版本名前缀
+                versionNameSuffix "-debug"
+                // 不开启混淆
+                minifyEnabled false
+                // 不开启ZipAlign优化
+                zipAlignEnabled false
+                // 不移除无用的resource文件
+                shrinkResources false
             }
             release {
                 signingConfig signingConfigs.releaseConfig
-                minifyEnabled false
+                minifyEnabled true
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             }
         }
@@ -44,6 +59,7 @@ android {
         Google {}
         Wandoujia {}
         Other {}
+        Develope{}
     }
 
     productFlavors.all { flavor ->

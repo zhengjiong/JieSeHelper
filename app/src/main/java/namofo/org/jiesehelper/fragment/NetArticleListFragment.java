@@ -113,7 +113,9 @@ public class NetArticleListFragment extends Fragment{
                 if (articles == null || articles.size() == 0 || articles.size() != 10) {
                     mOnScrollListener.setIsEnd(true);
                 }
-                mItems.addAll(articles);
+                if (articles != null) {
+                    mItems.addAll(articles);
+                }
                 getSuccess();
             }
         });
