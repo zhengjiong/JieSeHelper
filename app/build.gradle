@@ -50,6 +50,12 @@ android {
         flavor.manifestPlaceholders = [channel: name]
     }
 
+    sourceSets {
+        main {
+            jniLibs.srcDirs = [ 'libs' ]
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
