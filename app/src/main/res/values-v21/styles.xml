@@ -6,8 +6,20 @@
 
     <style name="MainTheme" parent="BaseAppTheme">
         <!-- Customize your theme here. -->
+
+        
+        <!--
+        windowDrawsSystemBarBackgrounds系统将在你的window里面绘制status bar，
+        默认为TRUE，之所以要写出来是因为你的theme有可能是继承过来的，确保为true
+        -->
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
 
+
+        <!--
+        statusBarColor设置为透明是因为我们不再需要系统的status bar，
+        因为我们无法控制它的位置，我们将交由NavigationView来处理。
+        這裡必須設置成透明色,不然drawer會被系統的statusbar遮擋住
+        -->
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 </resources>

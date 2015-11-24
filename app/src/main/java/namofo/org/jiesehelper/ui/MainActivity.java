@@ -48,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
     @AfterViews
     public void initData() {
+        //友盟自动更新
         UmengUpdateAgent.update(this);
+
         mFragments.add(ArticleFragment_.builder().build());
         mFragments.add(MyFavoritesFragment_.builder().build());
 

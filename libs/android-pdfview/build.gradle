@@ -1,15 +1,15 @@
 apply plugin: 'android-library'
-
 description = 'android-pdfview'
-
 android {
     compileSdkVersion 22
-    buildToolsVersion '22.0.1'
+    buildToolsVersion '23.0.1'
 
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
-            jniLibs.srcDirs = [ 'libs' ]
+            jniLibs.srcDirs = ['libs']
         }
     }
+}
+dependencies {
 }

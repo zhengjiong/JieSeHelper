@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.raizlabs.android.dbflow.DatabaseHelperListener;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
 import org.androidannotations.annotations.EApplication;
@@ -27,6 +28,7 @@ public class AppContext extends Application{
         super.onCreate();
         //JodaTimeAndroid.init(this);
         //getDeviceInfo(this);
+        CrashReport.initCrashReport(this, "900012747", false);
         MobclickAgent.openActivityDurationTrack(false);//禁止默认的页面统计方式，这样将不会再自动统计Activity。
         /*boolean delResult = deleteDatabase("jiesehelper.db");
         Log.i("zj", "delDatabase = " + delResult);*/

@@ -115,6 +115,7 @@ public class ArticleDetailForTxtActivity extends AppCompatActivity{
     /**
      * 設置收藏狀態
      */
+    @UiThread
     void setFavoritesStatus() {
         if (mIsSaved) {
             mFloatingActionButton.setImageResource(R.mipmap.ic_favorite_white);
