@@ -12,7 +12,7 @@
             android:title="大悲拔苦戒邪淫论坛" />
         <Preference
             android:key="@string/preference_yy"
-            android:summary="33069997"
+            android:summary="57090992"
             android:title="大悲拔苦公益讲堂YY" />
         <!--<Preference
             android:key="phone"

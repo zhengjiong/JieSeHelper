@@ -1,5 +1,6 @@
 package namofo.org.jiesehelper.fragment;
 
+import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
@@ -94,7 +96,13 @@ public class NetArticleListFragment extends Fragment{
             @Override
             public void onFailure(Request request, IOException e) {
                 e.printStackTrace();
-                getFailure();
+                try {
+                    if (NetArticleListFragment.this.isAdded()) {
+                        getFailure(getActivity().getResources().getString(R.string.net_error));
+                    }
+                } catch (Resources.NotFoundException e1) {
+                    Log.i("zj", "zj onFailure e1.getMessage=" + e1.getMessage());
+                }
                 mOnScrollListener.setIsLoading(false);
             }
 
@@ -105,16 +113,22 @@ public class NetArticleListFragment extends Fragment{
 
                 String jsonResult = response.body().string();
                 Log.i("zj", response.request().urlString()+"|getArticle = " + jsonResult);
-                List<Article> articles = Article.json2List(jsonResult);
+                try {
+                    List<Article> articles = Article.json2List(jsonResult);
 
-                if (mPage == 0) {
-                    mItems.clear();
-                }
-                if (articles == null || articles.size() == 0 || articles.size() != 10) {
-                    mOnScrollListener.setIsEnd(true);
-                }
-                if (articles != null) {
-                    mItems.addAll(articles);
+                    if (mPage == 0) {
+                        mItems.clear();
+                    }
+                    if (articles == null || articles.size() == 0 || articles.size() != 10) {
+                        mOnScrollListener.setIsEnd(true);
+                    }
+                    if (articles != null) {
+                        mItems.addAll(articles);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.i("zj", "解析数据失败:" + jsonResult);
+                    getFailure("解析数据失败");
                 }
                 getSuccess();
             }
@@ -122,10 +136,10 @@ public class NetArticleListFragment extends Fragment{
     }
 
     @UiThread
-    public void getFailure(){
+    public void getFailure(String error){
         mFooterRecyclerViewAdapter.setShowFooter(false);
         mRefreshLayout.setRefreshing(false);
-        ToastUtils.show(getActivity(), R.string.net_error);
+        ToastUtils.show(getActivity(), error);
         mProgressWrapper.setVisibility(View.GONE);
     }
 

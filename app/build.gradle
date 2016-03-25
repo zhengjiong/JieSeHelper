@@ -14,8 +14,8 @@ android {
         applicationId "namofo.org.jiesehelper"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 2
-        versionName "0.0.2"
+        versionCode 3
+        versionName "0.0.3"
 
         //manifestPlaceholders = [channel : "test"]
     }
@@ -57,7 +57,7 @@ android {
     }
 
     productFlavors {
-        百度助手{}
+        百度市场{}
         九一助手 {}
         安卓市场{}
     }
